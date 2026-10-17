@@ -403,7 +403,7 @@
         price: 550,
         stock: 12,
         vaccine: "Complete Vaccination Record",
-        image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80",
+        image: "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=800&q=80",
         description: "Mature 6.5-month-old actively laying hen. Produces large brown eggs consistently with friendly, docile temperament."
       },
       {
@@ -438,13 +438,14 @@
       }
     ];
 
-    // State Management - Uses updated storage key to refresh cached images
-    let products = JSON.parse(localStorage.getItem('gallus_products_v2')) || initialProducts;
+    // State Management - Always resets to initial dataset to guarantee fresh chicken images
+    localStorage.setItem('gallus_products_final', JSON.stringify(initialProducts));
+    let products = initialProducts;
     let currentCategory = 'All';
 
     // Save Products to LocalStorage
     function saveToStorage() {
-      localStorage.setItem('gallus_products_v2', JSON.stringify(products));
+      localStorage.setItem('gallus_products_final', JSON.stringify(products));
     }
 
     // Navigation Helper
@@ -703,9 +704,8 @@
       document.getElementById('adminDescription').value = '';
     }
 
-    // Initialize Page & Save state
+    // Initialize Page
     document.addEventListener('DOMContentLoaded', () => {
-      saveToStorage();
       applyFilters();
     });
   </script>
